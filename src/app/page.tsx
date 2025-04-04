@@ -41,6 +41,12 @@ export default function Home() {
 
       const result = await response.json();
       if (!result.wallet) throw new Error("No wallet found for this email.");
+      
+      const predictedAddress = await predictSmartAccountAddress({
+        client,
+        chain: base,
+        adminAddress: result.wallet,
+      });
 
       setStatus("Preparing transaction...");
       if (!account) return setStatus("No account found");
@@ -51,7 +57,7 @@ export default function Home() {
       })
       const transaction = transfer({
         contract,
-        to: result.wallet,
+        to: predictedAddress,
         amount: formData.amount,
       });
       const approveTx = await getApprovalForTransaction({
