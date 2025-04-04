@@ -7,6 +7,7 @@ import { client } from "./client";
 import { base } from "thirdweb/chains";
 import { sendAndConfirmTransaction, getContract } from "thirdweb";
 import { getApprovalForTransaction, transfer } from "thirdweb/extensions/erc20";
+import { predictSmartAccountAddress } from "thirdweb/wallets/smart";
 
 export default function Home() {
   const { data: profiles } = useProfiles({ client });
